@@ -1,7 +1,7 @@
 services:
   - type: web
     name: food-ordering-backend
-    runtime: node
+    env: node
     buildCommand: cd backend && npm install && npx prisma generate && npm run build
     startCommand: cd backend && node dist/main.js
     envVars:
@@ -11,10 +11,3 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
-      - key: PORT
-        value: 4000
-
-databases:
-  - name: food-ordering-db
-    databaseName: food_ordering_db
-    user: food_ordering_user
