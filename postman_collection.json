@@ -1,0 +1,403 @@
+{
+  "info": {
+    "name": "Food Ordering System API",
+    "description": "Complete GraphQL API collection for Food Ordering System with RBAC and Re-BAC",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000/graphql",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login - Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    id\n    email\n    name\n    role\n    country\n    token\n  }\n}",
+                "variables": "{\n  \"email\": \"nick.fury@slooze.xyz\",\n  \"password\": \"password\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Login - Manager India",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    id\n    email\n    name\n    role\n    country\n    token\n  }\n}",
+                "variables": "{\n  \"email\": \"captain.marvel@slooze.xyz\",\n  \"password\": \"password\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Login - Manager America",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    id\n    email\n    name\n    role\n    country\n    token\n  }\n}",
+                "variables": "{\n  \"email\": \"captain.america@slooze.xyz\",\n  \"password\": \"password\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Login - Member India",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    id\n    email\n    name\n    role\n    country\n    token\n  }\n}",
+                "variables": "{\n  \"email\": \"thor@slooze.xyz\",\n  \"password\": \"password\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Restaurants",
+      "item": [
+        {
+          "name": "Get All Restaurants",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query GetRestaurants {\n  restaurants {\n    id\n    name\n    description\n    country\n    menuItems {\n      id\n      name\n      description\n      price\n    }\n  }\n}",
+                "variables": ""
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Restaurant",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query GetRestaurant($id: String!) {\n  restaurant(id: $id) {\n    id\n    name\n    description\n    country\n    menuItems {\n      id\n      name\n      description\n      price\n    }\n  }\n}",
+                "variables": "{\n  \"id\": \"restaurant-id-here\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Get My Orders",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query GetMyOrders {\n  myOrders {\n    id\n    status\n    totalAmount\n    createdAt\n    user {\n      id\n      name\n      role\n    }\n    orderItems {\n      id\n      quantity\n      price\n      menuItem {\n        id\n        name\n      }\n    }\n  }\n}",
+                "variables": ""
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation CreateOrder($restaurantId: String!, $items: [OrderItemInput!]!) {\n  createOrder(restaurantId: $restaurantId, items: $items) {\n    id\n    status\n    totalAmount\n    createdAt\n    orderItems {\n      id\n      quantity\n      price\n      menuItem {\n        id\n        name\n      }\n    }\n  }\n}",
+                "variables": "{\n  \"restaurantId\": \"restaurant-id-here\",\n  \"items\": [\n    {\n      \"menuItemId\": \"menu-item-id-1\",\n      \"quantity\": 2\n    },\n    {\n      \"menuItemId\": \"menu-item-id-2\",\n      \"quantity\": 1\n    }\n  ]\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Checkout Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation CheckoutOrder($orderId: String!) {\n  checkoutOrder(orderId: $orderId) {\n    id\n    status\n    totalAmount\n  }\n}",
+                "variables": "{\n  \"orderId\": \"order-id-here\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation CancelOrder($orderId: String!) {\n  cancelOrder(orderId: $orderId) {\n    id\n    status\n  }\n}",
+                "variables": "{\n  \"orderId\": \"order-id-here\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payment Methods",
+      "item": [
+        {
+          "name": "Get Payment Methods",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query GetPaymentMethods {\n  myPaymentMethods {\n    id\n    cardNumber\n    cardHolder\n    expiryDate\n    isDefault\n  }\n}",
+                "variables": ""
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Add Payment Method",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation AddPaymentMethod($cardNumber: String!, $cardHolder: String!, $expiryDate: String!) {\n  addPaymentMethod(cardNumber: $cardNumber, cardHolder: $cardHolder, expiryDate: $expiryDate) {\n    id\n    cardNumber\n    cardHolder\n    expiryDate\n  }\n}",
+                "variables": "{\n  \"cardNumber\": \"4532123456789012\",\n  \"cardHolder\": \"John Doe\",\n  \"expiryDate\": \"12/28\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Payment Method",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation UpdatePaymentMethod($id: String!, $cardNumber: String, $cardHolder: String, $expiryDate: String) {\n  updatePaymentMethod(id: $id, cardNumber: $cardNumber, cardHolder: $cardHolder, expiryDate: $expiryDate) {\n    id\n    cardNumber\n    cardHolder\n    expiryDate\n  }\n}",
+                "variables": "{\n  \"id\": \"payment-id-here\",\n  \"cardHolder\": \"Jane Doe\",\n  \"expiryDate\": \"06/29\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Payment Method",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation DeletePaymentMethod($id: String!) {\n  deletePaymentMethod(id: $id)\n}",
+                "variables": "{\n  \"id\": \"payment-id-here\"\n}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": ["{{baseUrl}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
